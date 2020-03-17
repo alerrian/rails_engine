@@ -23,4 +23,15 @@ describe 'Merchants API' do
     expect(response).to be_successful
     expect(merchant[:data][:id]).to eq(id)
   end
+
+  it 'sends a merchants CREATE' do
+    merchant_params = { name: Faker::Company.name }
+
+    post '/api/v1/merchants', params: { merchant: merchant_params }
+
+    merchant = Merchant.last
+
+    expect(response).to be_successful
+    expect(merchant.name).to eq(merchant_params[:name])
+  end
 end
