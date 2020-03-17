@@ -11,6 +11,10 @@ class Api::V1::CustomersController < ApplicationController
     render json: CustomerSerializer.new(Customer.create(customer_params))
   end
 
+  def update
+    render json: CustomerSerializer.new(Customer.update(params[:id], customer_params))
+  end
+
   private
     def customer_params
       params.require(:customer).permit(:first_name, :last_name)
