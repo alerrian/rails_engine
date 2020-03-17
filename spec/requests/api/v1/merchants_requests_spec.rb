@@ -34,4 +34,18 @@ describe 'Merchants API' do
     expect(response).to be_successful
     expect(merchant.name).to eq(merchant_params[:name])
   end
+
+  it 'sends a merchants UPDATE' do
+    id = create(:merchant).id
+
+    previous_name = Merchant.last.name
+    merchant_params = { name: 'New' }
+
+    put "/api/v1/merchants/#{id}", params: { merchant: merchant_params }
+    merchant = Merchant.find_by(id: id)
+
+    expect(response).to be_successful
+    expect(merchant.name).to_not eq(previous_name)
+    expect(merchant.name).to eq('New')
+  end
 end
