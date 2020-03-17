@@ -29,7 +29,10 @@ namespace :import do
     puts 'Merchants Imported'
 
     items.each do |line|
-      Item.create(line.to_h)
+      item = Item.new(line.to_h)
+
+      item.unit_price = item.unit_price / 100
+      item.save
     end
     puts 'Items Imported'
 
