@@ -42,7 +42,9 @@ namespace :import do
     puts 'Invoices Imported'
 
     invoice_items.each do |line|
-      InvoiceItem.create(line.to_h)
+      invoice_item = InvoiceItem.new(line.to_h)
+      invoice_item.unit_price = invoice_item.unit_price / 100
+      invoice_item.save
     end
     puts 'Invoice Items Imported'
 
