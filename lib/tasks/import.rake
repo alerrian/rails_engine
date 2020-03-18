@@ -5,12 +5,6 @@ namespace :import do
     require 'csv'
 
     system "rake db:reset > /dev/null"
-    # Transaction.delete_all
-    # InvoiceItem.delete_all
-    # Invoice.delete_all
-    # Item.delete_all
-    # Merchant.delete_all
-    # Customer.delete_all
 
     customers = CSV.read('db/seeds/customers.csv', headers: true)
     invoice_items = CSV.read('db/seeds/invoice_items.csv', headers: true)
