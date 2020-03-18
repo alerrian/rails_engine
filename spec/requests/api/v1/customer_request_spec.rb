@@ -59,6 +59,6 @@ describe 'Customers API' do
 
     expect(response).to be_successful
     expect(Customer.count).to eq(0)
-    expect{Customer.find(customer.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect { Customer.find(customer.id) }.to raise_error(ActiveRecord::RecordNotFound)
   end
 end
