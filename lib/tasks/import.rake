@@ -3,13 +3,14 @@ namespace :import do
 
   task from_csv: :environment do
     require 'csv'
-    
-    Transaction.delete_all
-    InvoiceItem.delete_all
-    Invoice.delete_all
-    Item.delete_all
-    Merchant.delete_all
-    Customer.delete_all
+
+    system "rake db:reset > /dev/null"
+    # Transaction.delete_all
+    # InvoiceItem.delete_all
+    # Invoice.delete_all
+    # Item.delete_all
+    # Merchant.delete_all
+    # Customer.delete_all
 
     customers = CSV.read('db/seeds/customers.csv', headers: true)
     invoice_items = CSV.read('db/seeds/invoice_items.csv', headers: true)
@@ -19,17 +20,17 @@ namespace :import do
     transactions = CSV.read('db/seeds/transactions.csv', headers: true)
 
     customers.each do |line|
-      Customer.create(line.to_h)
+      Customer.create(line.to_a[1..-1].to_h)
     end
     puts 'Customers Imported'
 
     merchants.each do |line|
-      Merchant.create(line.to_h)
+      Merchant.create(line.to_a[1..-1].to_h)
     end
     puts 'Merchants Imported'
 
     items.each do |line|
-      item = Item.new(line.to_h)
+      item = Item.new(line.to_a[1..-1].to_h)
 
       item.unit_price = item.unit_price / 100
       item.save
@@ -37,19 +38,19 @@ namespace :import do
     puts 'Items Imported'
 
     invoices.each do |line|
-      Invoice.create(line.to_h)
+      Invoice.create(line.to_a[1..-1].to_h)
     end
     puts 'Invoices Imported'
 
     invoice_items.each do |line|
-      invoice_item = InvoiceItem.new(line.to_h)
+      invoice_item = InvoiceItem.new(line.to_a[1..-1].to_h)
       invoice_item.unit_price = invoice_item.unit_price / 100
       invoice_item.save
     end
     puts 'Invoice Items Imported'
 
     transactions.each do |line|
-      Transaction.create(line.to_h)
+      Transaction.create(line.to_a[1..-1].to_h)
     end
     puts 'Transactions Imported'
 
