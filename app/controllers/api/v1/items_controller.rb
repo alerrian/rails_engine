@@ -12,9 +12,6 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def update
-    # item = Item.find(params[:id])
-    # item.update(item_params)
-
     render json: ItemSerializer.new(Item.update(params[:id], item_params))
   end
 
