@@ -2,18 +2,15 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :customers, only: [:index, :show, :create, :update, :destroy]
+      resources :merchants, only: [:index, :show, :create, :update, :destroy]
+      resources :items, only: [:index, :show, :create, :update, :destroy]
 
-      resources :merchants, only: [:index, :show, :create, :update, :destroy] do
-        scope module: :merchant do
-          resources :items, only: [:index]
-        end
+      namespace :items do
+        get '/:id/merchant', to: 'merchants#show'
       end
 
-      # scopes merchants for retrieval based on the items
-      resources :items, only: [:index, :show, :create, :update, :destroy] do
-        scope module: :item do
-          resource :merchant, only: [:show]
-        end
+      namespace :merchants do
+        get '/:id/items', to: 'items#index'
       end
     end
   end
