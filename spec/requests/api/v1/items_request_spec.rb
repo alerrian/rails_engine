@@ -50,4 +50,20 @@ describe 'Items API' do
     expect(last_item.name).to eq(item_params[:name])
     expect(last_item.description).to eq(item_params[:description])
   end
+
+  it 'can update an item in the database' do
+    merchant = create(:merchant)
+
+    new_item = create(:item, merchant: merchant)
+
+    id = new_item.id
+
+    put "/api/v1/items/#{id}", params: { name: 'Another better name' }
+
+    last_item = Item.find_by(id: id)
+
+    expect(response).to be_successful
+    expect(last_item.name).to_not eq(new_item.name)
+    expect(last_item.name).to eq('Another better name')
+  end
 end
