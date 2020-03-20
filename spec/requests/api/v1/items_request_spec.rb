@@ -53,7 +53,6 @@ describe 'Items API' do
 
   it 'can update an item in the database' do
     merchant = create(:merchant)
-
     new_item = create(:item, merchant: merchant)
 
     id = new_item.id
