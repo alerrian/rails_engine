@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Merchant find endpoint' do
   it 'can find a merchant based on name parameters' do
     merchant_1 = create(:merchant, name: 'Steve')
-    merchant_2 = create(:merchant, name: 'Joe')
-    merchant_3 = create(:merchant, name: 'Steph')
+    create(:merchant, name: 'Joe')
+    create(:merchant, name: 'Steph')
 
     get '/api/v1/merchants/find?name=ste'
 
