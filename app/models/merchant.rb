@@ -32,9 +32,3 @@ class Merchant < ApplicationRecord
       .sum('invoice_items.quantity * invoice_items.unit_price')
   end
 end
-
-# Merchant.items.joins(:transactions)
-#               .where(transactions: { result: :success})
-#               .select("merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
-#               .group(:id).order('revenue', :DESC)
-#               .limit(params[:quantity])
